@@ -31,6 +31,36 @@ class UserSerializer(serializers.ModelSerializer):
 
 
 # Serializer para PasswordEntry
+# class PasswordEntrySerializer(serializers.ModelSerializer):
+#     raw_password = serializers.CharField(write_only=True, required=True)
+#     decrypted_password = serializers.CharField(read_only=True, source='get_password')
+
+#     class Meta:
+#         model = PasswordEntry
+#         fields = [
+#             'id', 'title', 'username',
+#             'service_url',
+#             'created_at', 'updated_at',
+#             'raw_password', 'decrypted_password'
+#         ]
+#         read_only_fields = ['id', 'created_at', 'updated_at', 'decrypted_password']
+
+#     def create(self, validated_data):
+#         raw_password = validated_data.pop('raw_password')
+#         entry = PasswordEntry(**validated_data)
+#         entry.set_password(raw_password)
+#         entry.save()
+#         return entry
+
+#     def update(self, instance, validated_data):
+#         raw_password = validated_data.pop('raw_password', None)
+#         for attr, value in validated_data.items():
+#             setattr(instance, attr, value)
+#         if raw_password:
+#             instance.set_password(raw_password)
+#         instance.save()
+#         return instance
+
 class PasswordEntrySerializer(serializers.ModelSerializer):
     raw_password = serializers.CharField(write_only=True, required=True)
     decrypted_password = serializers.CharField(read_only=True, source='get_password')
@@ -39,11 +69,10 @@ class PasswordEntrySerializer(serializers.ModelSerializer):
         model = PasswordEntry
         fields = [
             'id', 'user', 'title', 'username',
-            'service_url',
-            'created_at', 'updated_at',
+            'service_url', 'created_at', 'updated_at',
             'raw_password', 'decrypted_password'
         ]
-        read_only_fields = ['id', 'created_at', 'updated_at', 'decrypted_password']
+        read_only_fields = ['id', 'created_at', 'updated_at', 'decrypted_password', 'user']  # user es solo lectura
 
     def create(self, validated_data):
         raw_password = validated_data.pop('raw_password')

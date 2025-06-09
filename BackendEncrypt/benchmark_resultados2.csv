@@ -1,0 +1,2 @@
+name,min,max,mean,stddev,median,iqr,outliers,ops,rounds,iterations
+backend/test/test_password_benchmark.py::test_decrypt_password_benchmark,1.47E-05,5.21E-05,1.54E-05,1.15E-06,1.51E-05,3.00E-07,1861;2085,64860.9486,17332,1

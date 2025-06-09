@@ -11,16 +11,28 @@ class UserViewSet(viewsets.ModelViewSet):
     serializer_class = UserSerializer
 
 # Vista para gestionar entradas de contraseñas
+# class PasswordEntryViewSet(viewsets.ModelViewSet):
+#     serializer_class = PasswordEntrySerializer
+#     permission_classes = [IsAuthenticated]
+#     queryset = PasswordEntry.objects.none()  
+
+#     def get_queryset(self):
+#         return PasswordEntry.objects.filter(user=self.request.user)
+
+#     def perform_create(self, serializer):
+#         serializer.save(user=self.request.user)
+
 class PasswordEntryViewSet(viewsets.ModelViewSet):
     serializer_class = PasswordEntrySerializer
     permission_classes = [IsAuthenticated]
-    queryset = PasswordEntry.objects.none()  
+    queryset = PasswordEntry.objects.none()  # evita mostrar datos de otros usuarios
 
     def get_queryset(self):
         return PasswordEntry.objects.filter(user=self.request.user)
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
+
 
 from rest_framework_simplejwt.views import TokenObtainPairView
 
